@@ -273,12 +273,12 @@ export default function App() {
                     <div className="flex justify-between items-center text-center">
                       <div className="space-y-1">
                         <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Terbit</p>
-                        <p className="text-xl font-black">05:42</p>
+                        <p className="text-xl font-black">{weather.sunrise || '--:--'}</p>
                       </div>
                       <div className="w-px h-10 bg-white/10"></div>
                       <div className="space-y-1">
                         <p className="text-[10px] text-orange-400 font-black uppercase tracking-widest">Terbenam</p>
-                        <p className="text-xl font-black">17:58</p>
+                        <p className="text-xl font-black">{weather.sunset || '--:--'}</p>
                       </div>
                     </div>
                   </div>

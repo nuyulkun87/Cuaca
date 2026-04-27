@@ -14,6 +14,8 @@ export interface WeatherData {
   pressure: number;
   feelsLike: number;
   dt: number;
+  sunrise?: string;
+  sunset?: string;
 }
 
 export interface ForecastData {
@@ -56,13 +58,18 @@ export const fetchWeatherByCoords = async (lat: number, lon: number, cityName?: 
       latitude: lat,
       longitude: lon,
       current: 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,surface_pressure,wind_speed_10m',
-      daily: 'weather_code,temperature_2m_max,temperature_2m_min',
+      daily: 'weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset',
       timezone: 'auto',
     },
   });
 
   const current = response.data.current;
+  const daily = response.data.daily;
   const info = getWeatherInfo(current.weather_code);
+
+  const formatTime = (isoString: string) => {
+    return new Date(isoString).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':');
+  };
 
   return {
     city: cityName || `Lokasi Anda (${lat.toFixed(2)}, ${lon.toFixed(2)})`,
@@ -74,6 +81,8 @@ export const fetchWeatherByCoords = async (lat: number, lon: number, cityName?: 
     pressure: Math.round(current.surface_pressure),
     feelsLike: Math.round(current.apparent_temperature),
     dt: Math.floor(Date.now() / 1000),
+    sunrise: daily.sunrise ? formatTime(daily.sunrise[0]) : undefined,
+    sunset: daily.sunset ? formatTime(daily.sunset[0]) : undefined,
   } as WeatherData;
 };
 
