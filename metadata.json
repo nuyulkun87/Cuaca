@@ -1,0 +1,8 @@
+{
+  "name": "CuacaKita",
+  "description": "Aplikasi cuaca realtime akurat dengan deteksi lokasi otomatis dan tampilan dark mode yang elegan.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
